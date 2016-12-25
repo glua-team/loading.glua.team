@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css" />
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css"/>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.8.0/css/themes/semantic.min.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet" />
+
+        <style>
+            #audio {
+                display: none;
+            }
+
+            #music-ctl {
+                position: fixed;
+                right: 0;
+                bottom: 0;
+                width: 90px;
+                padding: 0 30px 30px 0;
+                cursor: pointer;
+                z-index: 999;
+            }
+
+            .cover {
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQIW2NkYGCQBOLnQAwGjDAGNgGwSgwVAE+2AgXahLM7AAAAAElFTkSuQmCC) repeat;
+                background-size: 10px;
+                position: fixed;
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+            }
+
+            body {
+                background-color: black;
+                /*background: linear-gradient(247deg, #e65d00,  #A14436, #8f5046);*/
+                background: linear-gradient(45deg,  transparent 0%, transparent 57%, #423246 100%),
+                linear-gradient(-45deg, #8f5046 0%,  #A14436 0.3%, #4C2556 112%,  transparent 11% ),
+                linear-gradient(-90deg, #A14436 100%, #A14436 65%, transparent 20% );
+                background-size: 600% 600%;
+
+                -webkit-animation: gluabackground 23s ease infinite;
+                -moz-animation: gluabackground 23s ease infinite;
+                -o-animation: gluabackground 23s ease infinite;
+                animation: gluabackground 23s ease infinite;
+            }
+
+            @-webkit-keyframes gluabackground {
+                0%{background-position:94% 0%}
+                50%{background-position:7% 100%}
+                100%{background-position:94% 0%}
+            }
+            @-moz-keyframes gluabackground {
+                0%{background-position:94% 0%}
+                50%{background-position:7% 100%}
+                100%{background-position:94% 0%}
+            }
+            @-o-keyframes gluabackground {
+                0%{background-position:94% 0%}
+                50%{background-position:7% 100%}
+                100%{background-position:94% 0%}
+            }
+            @keyframes gluabackground {
+                0%{background-position:94% 0%}
+                50%{background-position:7% 100%}
+                100%{background-position:94% 0%}
+            }
+
+            .ytplayer-container {
+                position: absolute;
+                top: 0;
+                z-index: -1;
+            }
+
+            .ytplayer-shield {
+                display: none;
+            }
+
+            .ui.basic.inverted.button {
+                width: 150px;
+            }
+            
+            #friends-container {
+                perspective: 1000px;
+                perspective-origin: 50% -200px;
+            }
+
+            #friends {
+                transform-style: preserve-3d;
+                position: relative;
+                margin: auto;
+                width: 200px
+            }
+
+            #friends>.item {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 200px;
+                backface-visibility: hidden;
+                font-size: 1.1em;
+            }
+
+            .basic.card {
+                color: #F9FAFB !important;
+                background-color: transparent !important;
+                box-shadow: 0 0 0 2px rgba(255,255,255,.5) inset !important;
+            }
+
+            a.inverted {
+                color: #F9FAFB !important;
+            }
+
+            * {
+                font-family: 'Open Sans', sans-serif !important;
+            }
+
+            .ui.horizontal.list:not(.celled) > .item:first-child {
+                padding: .5em !important;
+            }
+
+            .altos-gay {
+                text-shadow: 0 0 10px #75FFFF;
+                font-size: 30px !important;
+            }
+
+            .altos-gay-2 {
+                font-size: 20px !important;
+            }
+        </style>
+
+        <title>glua.team</title>
+    </head>
+    <body>
+        <div class="cover"></div>
+        <audio id="audio" src="/loadingmeme.ogg"></audio>
+        <img id="music-ctl"></img>
+        <div class="container">
+            <div class="ui center aligned very padded basic segment">
+                <div class="ui inverted header">
+                    <h1 id="mainheader" style="font-size: 3.5em; font-weight: lighter;">glua.team RP</h1>
+                </div>
+            </div>
+            <div class="ui center aligned very padded basic segment">
+                <div class="ui inverted header">
+                    <h1 style="font-size: 2em; font-weight: lighter;">Bringing you the best memes on Garry`s Mod</h1>
+                </div>
+            </div>
+
+            <div class="ui center aligned very padded basic segment">
+                <div class="ui centered cards">
+                    <div class="card" style="width: 30%;">
+                        <div class="content">
+                            <div class="header altos-gay">
+                                Welcome
+                            </div>
+                            <div class="meta altos-gay-2" id="userdata-header">
+                                Loading...
+                            </div>
+                            <div class="description">
+                                <table class="ui fixed selectable celled table">
+                                    <thead>
+                                        <tr>
+                                            <th>Files Left</th>
+                                            <th>File</th>
+                                            <th>Download Percentage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td id="ud-filesleft">-</td>
+                                            <td id="ud-file">-</td>
+                                            <td id="ud-percentage">-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/cookie.js"></script>
+    <script src="./js/jquery.youtubebackground.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js"></script>
+
+    <script type="text/javascript">
+        var glua = {team: {}};
+    </script>
+
+    <script type="text/javascript">
+        var hueVal = 0;
+
+        setInterval(function() {
+            $("#mainheader").css("color","hsl(" + (hueVal % 360) + ", 100%, 80%)");
+        },200);
+
+        setInterval(function() {
+            hueVal += 0.35;
+            $("#mainheader").css("transform",`rotateY(${Math.sin(hueVal/20)*20}deg) rotateZ(${Math.sin(hueVal/30)*5}deg)`);
+        },1/25 * 1000);
+    </script>
+
+    <script>
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+
+        if (getUrlParameter("steamID")) {
+            $("#userdata-header").text(getUrlParameter("steamID"));
+        }
+        else {
+            $("#userdata-header").text("No steamID found...");
+        }
+
+        var FilesNeeded = 0;
+
+        function SetFilesNeeded(needed) {
+            $("#ud-filesleft").text(needed);
+            FilesNeeded = needed;
+        }
+
+        function DownloadingFile(fileName) {
+            $("#ud-file").text(needed);
+        }
+
+        function SetFilesTotal(total) {
+            $("#ud-percentage").text(Math.round(needed / total * 100) + "%");
+        }
+    </script>
+
+    <script type="text/javascript">
+        var audioActive = false;
+
+        glua.team.startAudio = function() {
+            $("#audio")[0].play();
+            audioActive = true;
+            alertify.message("Max Coveri - Running In The 90s");
+        }
+
+        glua.team.updateAudioCTL = function() {
+            if(Cookies.getJSON("music-disabled")) {
+                $("#music-ctl").attr("src","/icons/silent_white.png");
+                $("#audio")[0].volume = 0;
+            }
+            else {
+                $("#music-ctl").attr("src","/icons/loud_white.png");
+                
+                if(!audioActive) {
+                    glua.team.startAudio();
+                }
+
+                $("#audio")[0].volume = 1;
+            }
+        };
+
+        $(document).ready(function() {
+            $("#music-ctl").click(function() {
+                Cookies.set("music-disabled",JSON.stringify(!Cookies.getJSON("music-disabled"))),{expires: 365 * 10};
+
+                glua.team.updateAudioCTL();
+            });
+
+            glua.team.updateAudioCTL();
+        });
+    </script>
+</html>
